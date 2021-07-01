@@ -7,23 +7,23 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const weatherOptions = { 
     Thunderstorm: {
         iconName:"weather-lightning",
-        gradient: ["#2C5364", "#203A43", "#0F2027"]
+        gradient: ["#373B44", "#4286f4"]
     },
     Drizzle: {
         iconName:"weather-rainy",
-        gradient: ["#6dd5ed", "#2193b0"]
+        gradient: ["#89F7FE", "#66A6FF"]
     },
     Rain: {
         iconName:"weather-rainy",
-        gradient: ["#2980b9", "#2c3e50"]
+        gradient: ["#00C6FB", "#005BEA"]
     },
     Snow: {
         iconName:"weather-snowy",
-        gradient: ["#eef2f3", "#8e9eab"]
+        gradient: ["#7DE2FC", "#B9B6E5"]
     },
     Mist: {
         iconName:"weather-fog",
-        gradient: ["#2a5298", "#1e3c72"]
+        gradient: ["#4DA0B0", "#D39D38"]
     },
     Smoke: {
         iconName:"weather-hazy",
@@ -31,15 +31,17 @@ const weatherOptions = {
     },
     Haze: {
         iconName:"weather-hazy",
-        gradient: ["#B993D6", "#8CA6DB"]
+        gradient: ["#4DA0B0", "#D39D38"],
+        title: "Haze",
+        subtitle: "Just don't go outside."
     },
     Dust: {
         iconName:"weather-hazy",
-        gradient: ["#ACBB78", "#F7F8F8"]
+        gradient: ["#4DA0B0", "#D39D38"]
     },
     Sand: {
         iconName:"weather-hazy",
-        gradient: ["#ACBB78", "#F7F8F8"]
+        gradient: ["#4DA0B0", "#D39D38"]
     },
     Ash: {
         iconName:"weather-fog",
@@ -55,11 +57,11 @@ const weatherOptions = {
     },
     Clear: {
         iconName:"weather-sunny",
-        gradient: ["#FDC830", "#F37335"]
+        gradient: ["#FF7300", "#FEF253"]
     },
     Clouds: {
         iconName:"weather-cloudy",
-        gradient: ["#E0EAFC", "#CFDEF3"]
+        gradient: ["#D7D2CC", "#304352"]
     }
   };
   
@@ -78,7 +80,12 @@ const weatherOptions = {
                 />
                 <Text style={styles.temp}>{temp}°</Text>
             </View>
-            <View style={styles.halfContainer} />
+            <View style={{ ...styles.halfContainer, ...styles.textContainer }}>
+                <Text style={styles.title}>{weatherOptions[condition].title}</Text>
+                <Text style={styles.subtitle}>
+                {weatherOptions[condition].subtitle}
+                </Text>
+            </View>
         </LinearGradient>
     );
 }
@@ -117,5 +124,20 @@ const styles = StyleSheet.create({
             flex: 1,
             justifyContent: "center",
             alignItems: "center"
+        },
+        title: {
+          color: "white",
+          fontSize: 44,
+          fontWeight: "300",
+          marginBottom: 10
+        },
+        subtitle: {
+          fontWeight: "600",
+          color: "white",
+          fontSize: 24
+        },
+        textContainer: {
+          paddingHorizontal: 20,
+          alignItems: "flex-start"
         }
 });
