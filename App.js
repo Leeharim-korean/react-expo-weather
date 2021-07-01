@@ -1,28 +1,38 @@
 import React from "react";
-import { Alert } from "react-native";
+import { Alert, View } from "react-native";
 import Loading from "./Loading";
 import * as Location from "expo-location";
+import axios from "axios";
+
+const API_KEY = "6c9ee848fa477029c919306188c44185";
 
 export default class extends React.Component {
-  state = { 
+  state = {
     isLoading: true
   };
-  getLoctaion = async () => {
+  getWeather = async (latitude, longitude) => {
+    const { data } = await axios.get(
+      `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
+    );
+    console.log(data);
+  };
+  getLocation = async () => {
     try {
       await Location.requestForegroundPermissionsAsync();
       const {
         coords: { latitude, longitude }
       } = await Location.getCurrentPositionAsync();
+      this.getWeather(latitude, longitude);
       this.setState({ isLoading: false });
     } catch (error) {
-      Alert.alert("GPS turns off", "Can't find you");
+      Alert.alert("Can't find you.", "So sad");
     }
   };
   componentDidMount() {
-    this.getLoctaion();
+    this.getLocation();
   }
   render() {
     const { isLoading } = this.state;
-    return isLoading ? <Loading/> : null;
+    return isLoading ? <Loading /> : <View>Working!</View>;
   }
 }
